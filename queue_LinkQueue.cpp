@@ -75,7 +75,7 @@ ElemType inLinkQueue(LinkQueue* lq,ElemType elem){
 ElemType outLinkQueue (LinkQueue * lq, ElemType &elem){
 	LQNode* node;
 	//the queue is empty
-	if(lq->front = NULL){
+	if(lq->rear = NULL){//############must be lq->rear
 		return Error;
 	}
 	else{

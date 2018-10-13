@@ -57,6 +57,7 @@ ElemType outList(SQList &l, ElemType &elem, int index){
 void initLinkList(LNode*& l){
 	l = (LNode*)malloc (sizeof(LNode));
 	l->next = NULL;
+	cout<<"success initial LinkList\n";
 }
 //insert
 
@@ -67,6 +68,7 @@ ElemType insertLinkList(LNode* l , ElemType elem){
 	node->data = elem;
 	node->next = l->next;
 	l->next = node;
+	cout<<"insert the elem "<<elem<<"\n";
 	return Success;
 }
 
@@ -77,16 +79,52 @@ ElemType insertTailLinkList(LNode* l,ElemType elem){
 	node = (LNode*)malloc(sizeof(LNode));
 	node->data = elem;
 	node->next =NULL;
+	tail = l;//#########
 	tail->next = node;
-	l->next =node;
+	tail = node;//#########
+	cout<<"insert the elem "<<elem<<"\n";
 	return Success;
 }
 //out
-/*
-ElemType delete(LNode* l,ElemType elem){
-	return 0;
+
+ElemType deleteLinkList(LNode* l,LNode* preNode){
+	LNode* node;
+	node = preNode->next;
+	preNode->next = node->next;
+	free(node);
+	cout<<"delete success\n";
+	return Success;
 }
-*/
+
+//search
+
+LNode* search(LNode *l, ElemType elem){
+	LNode* pointer;
+	//start with head pointer which has no data
+	pointer  = l;
+	while((pointer->next)!=NULL){
+		if(pointer->next->data == elem){
+			break;
+		}
+
+	}
+	cout<<"search success\n";
+		return pointer;//if there is no elem, the pointer == NULL
+}
+
+//search and delete
+
+ElemType searchAndDelete(LNode*l, ElemType elem){
+	LNode* preNode;
+	preNode = search(l,elem);
+	if(preNode->next==NULL){//########
+		return Error;
+	}
+	
+	return deleteLinkList(l,preNode);
+	
+}
+
 int main(){
 	//normal list
 	/*start*
@@ -121,7 +159,8 @@ int main(){
 	initLinkList(l);
 	initLinkList(s);
 	insertLinkList(l,elem);
-	insertTailLinkList(l,elem);
+	insertTailLinkList(s,elem);
+	cout<<"the result is: "<<searchAndDelete(l,elem)<<"\n";
 	/*end*/
 	return 0;
 } 
